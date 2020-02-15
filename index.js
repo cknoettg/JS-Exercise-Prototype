@@ -114,10 +114,10 @@ Baby.prototype.play = function() {
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. When you are not in any specific scope, this will take on the Window or Global object - the whole of JS
+  2. In Object.function situations, that calling Object takes the this
+  3. In constructor functions, this binds to that specific Object
+  4. With call or apply, this references the parent object
 */
 
 
