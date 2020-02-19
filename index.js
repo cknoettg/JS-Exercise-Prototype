@@ -39,9 +39,25 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+  this.stomach = [];
+  this.name = name;
+  this.age = age;
 }
+
+Person.prototype.eat = function(someFood) {
+  if (this.stomach.length < 10) {
+    this.stomach.push(someFood);
+  }
+};
+
+Person.prototype.poop = function() {
+  this.stomach.length = 0;
+};
+
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`;
+};
 
 /*
   TASK 2
@@ -57,9 +73,28 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
 }
+
+Car.prototype.fill = function(gallons) {
+  this.tank += gallons;
+};
+
+Car.prototype.drive = function(distance) {
+  let empty = this.tank * this.milesPerGallon;
+  if (distance < empty) {
+    this.odometer += distance;
+    this.tank -= distance / this.milesPerGallon;
+  } else {
+    this.odometer += empty;
+    this.tank -= empty / this.milesPerGallon;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+};
 
 /*
   TASK 3
@@ -68,18 +103,25 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age, favoriteToy);
+  this.favoriteToy = favoriteToy;
 }
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
+};
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. When you are not in any specific scope, this will take on the Window or Global object - the whole of JS
+  2. In Object.function situations, that calling Object takes the this
+  3. In constructor functions, this binds to that specific Object
+  4. With call or apply, this references the parent object
 */
 
 
